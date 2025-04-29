@@ -19,6 +19,7 @@ public class AgendamentoPanel extends JPanel {
     private JTextField tfNomeCliente;
     private JTextField tfContatoCliente;
 
+
     private JButton btnAgendar;
     private JButton btnOcupar;
 
@@ -27,51 +28,86 @@ public class AgendamentoPanel extends JPanel {
 
     public AgendamentoPanel() {
         this.controller = new AgendamentoController();
+        setBackground(Color.BLACK); // Fundo preto
         this.barbearia = new Barbearia();
 
-        setLayout(new GridLayout(9, 1, 5, 5));
+        setLayout(new BorderLayout());
+
+        JPanel formPanel = new JPanel();
+        formPanel.setBackground(Color.BLACK);
+        formPanel.setLayout(new GridLayout(10, 1, 10, 10));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+
+        Font labelFont = new Font("SansSerif", Font.BOLD, 14);
+        Color goldColor = new Color(212, 175, 55);
 
         // Barbeiros
+        JLabel lblBarbeiro = new JLabel("Barbeiro:");
+        lblBarbeiro.setForeground(goldColor);
+        lblBarbeiro.setFont(labelFont);
         cbBarbeiros = new JComboBox<>();
-        for (Barbeiro b : barbearia.getBarbeiros()) {
-            cbBarbeiros.addItem(b);
-        }
-        add(new JLabel("Barbeiro:"));
-        add(cbBarbeiros);
+        for (Barbeiro b : barbearia.getBarbeiros()) cbBarbeiros.addItem(b);
+        formPanel.add(lblBarbeiro);
+        formPanel.add(cbBarbeiros);
 
         // Serviços
+        JLabel lblServico = new JLabel("Serviço:");
+        lblServico.setForeground(goldColor);
+        lblServico.setFont(labelFont);
         cbServicos = new JComboBox<>();
-        for (Servico s : barbearia.getServicos()) {
-            cbServicos.addItem(s);
-        }
-        add(new JLabel("Serviço:"));
-        add(cbServicos);
+        for (Servico s : barbearia.getServicos()) cbServicos.addItem(s);
+        formPanel.add(lblServico);
+        formPanel.add(cbServicos);
 
         // Data
+        JLabel lblData = new JLabel("Data:");
+        lblData.setForeground(goldColor);
+        lblData.setFont(labelFont);
         dateChooser = new JDateChooser();
         dateChooser.setDateFormatString("yyyy-MM-dd");
-        add(new JLabel("Data:"));
-        add(dateChooser);
+        formPanel.add(lblData);
+        formPanel.add(dateChooser);
 
-        // Botão de horários
+        // Botão Ver Horários
         btnVerHorarios = new JButton("Ver Horários Disponíveis");
         cbHorarios = new JComboBox<>();
-        add(btnVerHorarios);
-        add(cbHorarios);
+        formPanel.add(btnVerHorarios);
+        formPanel.add(cbHorarios);
 
         // Cliente
+        JLabel lblNome = new JLabel("Nome do Cliente:");
+        lblNome.setForeground(goldColor);
+        lblNome.setFont(labelFont);
         tfNomeCliente = new JTextField();
+        formPanel.add(lblNome);
+        formPanel.add(tfNomeCliente);
+
+        JLabel lblContato = new JLabel("Contato do Cliente:");
+        lblContato.setForeground(goldColor);
+        lblContato.setFont(labelFont);
         tfContatoCliente = new JTextField();
-        add(new JLabel("Nome do Cliente:"));
-        add(tfNomeCliente);
-        add(new JLabel("Contato do Cliente:"));
-        add(tfContatoCliente);
+        formPanel.add(lblContato);
+        formPanel.add(tfContatoCliente);
 
         // Botões finais
+        JPanel btnPanel = new JPanel(new GridLayout(1, 2, 10, 0));
         btnAgendar = new JButton("Agendar");
         btnOcupar = new JButton("Marcar como Ocupado");
-        add(btnAgendar);
-        add(btnOcupar);
+
+        // Estilo dos botões
+        btnAgendar.setBackground(goldColor);
+        btnAgendar.setForeground(Color.BLACK);
+        btnAgendar.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+        btnOcupar.setBackground(Color.DARK_GRAY);
+        btnOcupar.setForeground(Color.WHITE);
+        btnOcupar.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+        btnPanel.add(btnAgendar);
+        btnPanel.add(btnOcupar);
+        formPanel.add(btnPanel);
+
+        add(formPanel, BorderLayout.CENTER);
 
         configurarAcoes();
     }
@@ -149,4 +185,5 @@ public class AgendamentoPanel extends JPanel {
             }
         });
     }
+
 }

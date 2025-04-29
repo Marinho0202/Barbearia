@@ -20,6 +20,9 @@ public class AgendaPanel extends JPanel {
         this.controller = new AgendamentoController();
         this.barbearia = new Barbearia();
 
+        setBackground(Color.BLACK);
+
+
         setLayout(new GridLayout(6, 1, 5, 5));
 
         cbBarbeiros = new JComboBox<>();
@@ -33,6 +36,10 @@ public class AgendaPanel extends JPanel {
         btnBuscar = new JButton("Ver Agenda");
         taResultado = new JTextArea();
         taResultado.setEditable(false);
+
+        taResultado.setBackground(Color.DARK_GRAY);
+        taResultado.setForeground(Color.WHITE);
+
 
         add(new JLabel("Barbeiro:"));
         add(cbBarbeiros);
@@ -62,9 +69,10 @@ public class AgendaPanel extends JPanel {
                 taResultado.append("Nenhum agendamento para essa data.");
             } else {
                 for (Agendamento ag : lista) {
-                    taResultado.append(ag.toString() + "\n");
+                    taResultado.append(ag.toString() + "\\n");
                 }
             }
         });
     }
+
 }
